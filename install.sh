@@ -46,11 +46,11 @@ function install_xrdp_pa() {
 # resolve PA no sound issue
 # Issue: https://github.com/neutrinolabs/pulseaudio-module-xrdp/issues/44
 function fix_pa_systemd_issue() {
-mkdir -p /home/rdpuser/.config/systemd/user/
-ln -s /dev/null /home/rdpuser/.config/systemd/user/pulseaudio.service
-mkdir -p /home/rdpuser/.config/autostart/
+mkdir -p /home/covid19/.config/systemd/user/
+ln -s /dev/null /home/covid19/.config/systemd/user/pulseaudio.service
+mkdir -p /home/covid19/.config/autostart/
 cat <<EOF | \
-  sudo tee /home/rdpuser/.config/autostart/pulseaudio.desktop
+  sudo tee /home/covid19/.config/autostart/pulseaudio.desktop
 [Desktop Entry]
 Type=Application
 Exec=pulseaudio
@@ -62,25 +62,25 @@ Name=pulseaudio
 Comment[en_US]=pulseaudio
 Comment=pulseaudio
 EOF
-chown -R rdpuser /home/rdpuser/.config/
-chmod -R 755 /home/rdpuser/.config/
+chown -R covid19 /home/covid19/.config/
+chmod -R 755 /home/covid19/.config/
 }
 
 # create desktop user
 function create_desktop_user() {
-useradd -s /bin/bash -m rdpuser
-usermod -a -G sudo rdpuser
-echo "rdpuser ALL=(ALL) ALL" >> /etc/sudoers
-echo "rdpuser_password
-rdpuser_password
-" | passwd rdpuser
+useradd -s /bin/bash -m covid19
+usermod -a -G sudo covid19
+echo "covid19 ALL=(ALL) ALL" >> /etc/sudoers
+echo "1212
+1212
+" | passwd covid19
 }
 
 # Xrdp environment configuration
 function xrdp_conf() {
-touch /home/rdpuser/.Xclients
-echo "lxsession" > /home/rdpuser/.Xclients
-chmod a+x /home/rdpuser/.Xclients
+touch /home/covid19/.Xclients
+echo "lxsession" > /home/covid19/.Xclients
+chmod a+x /home/covid19/.Xclients
 # sudo sed -e 's/^new_cursors=true/new_cursors=false/g' -i /etc/xrdp/xrdp.ini
 cp /etc/xrdp/xrdp.ini /etc/xrdp/xrdp.ini.backup.u2ad
 echo "$xrdp_config_base64" | base64 -d > /etc/xrdp/xrdp.ini
@@ -134,5 +134,5 @@ apt-get autoremove -y
 echo "Install Done!"
 echo "Now you can reboot and connect port 3389 with rdp client"
 echo "Note: chromium-browser is not displayed on the desktop, please start it manually if necessary"
-echo "Default Username: rdpuser"
-echo "Default Password: rdpuser_password"
+echo "Default Username: covid19"
+echo "Default Password: 1212"

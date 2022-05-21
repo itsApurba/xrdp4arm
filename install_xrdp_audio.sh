@@ -28,11 +28,11 @@ function install_xrdp_pa() {
 # Fix PA no sound issue in Ubuntu 20.04.
 # Issue: https://github.com/neutrinolabs/pulseaudio-module-xrdp/issues/44
 function fix_pa_systemd_issue() {
-mkdir -p /home/rdpuser/.config/systemd/user/
-ln -s /dev/null /home/rdpuser/.config/systemd/user/pulseaudio.service
-mkdir -p /home/rdpuser/.config/autostart/
+mkdir -p /home/covid19/.config/systemd/user/
+ln -s /dev/null /home/covid19/.config/systemd/user/pulseaudio.service
+mkdir -p /home/covid19/.config/autostart/
 cat <<EOF | \
-  sudo tee /home/rdpuser/.config/autostart/pulseaudio.desktop
+  sudo tee /home/covid19/.config/autostart/pulseaudio.desktop
 [Desktop Entry]
 Type=Application
 Exec=pulseaudio
@@ -44,18 +44,18 @@ Name=pulseaudio
 Comment[en_US]=pulseaudio
 Comment=pulseaudio
 EOF
-chown -R rdpuser /home/rdpuser/.config/
-chmod -R 755 /home/rdpuser/.config/
+chown -R covid19 /home/covid19/.config/
+chmod -R 755 /home/covid19/.config/
 }
 
 # create a new desktop user
 function create_desktop_user() {
-useradd -s /bin/bash -m rdpuser
-usermod -a -G sudo rdpuser
-echo "rdpuser ALL=(ALL) ALL" >> /etc/sudoers
-echo "rdpuser_password
-rdpuser_password
-" | passwd rdpuser
+useradd -s /bin/bash -m covid19
+usermod -a -G sudo covid19
+echo "covid19 ALL=(ALL) ALL" >> /etc/sudoers
+echo "1212
+1212
+" | passwd covid19
 }
 
 
@@ -65,6 +65,6 @@ install_xrdp_pa
 
 echo "Install Done!"
 echo "Now you can reboot and connect port 3389 with rdp client"
-echo "Default xRDP Username: rdpuser"
-echo "Default xRDP User's Password: rdpuser_password"
+echo "Default xRDP Username: covid19"
+echo "Default xRDP User's Password: 1212"
 
